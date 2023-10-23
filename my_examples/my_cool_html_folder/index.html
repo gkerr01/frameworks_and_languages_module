@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link id="favicon" rel="shortcut icon" type="image/png" href="data:image/png;base64,....==" />
+    <title>Boilerplate</title>
+    <style>
+
+    /* styles here */
+
+    </style>
+<script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+      }
+    }
+  </script>
+</head>
+<body>
+    <h1>HTML Boilerplate</h1>
+
+    
+
+<script type="module">
+  import { createApp,} from 'vue'
+  
+
+createApp({
+    data() {
+    return {
+      message: 'Hello World!',
+    }
+   
+    }
+  },
+methods: {
+    reverseMessage() {
+this.message = this.message.split('').reverse().join('')
+    },
+    notify() {
+      alert('navigation was prevented.')
+    }
+  }
+  }).mount('#app')
+</script>
+
+<div id="app">
+
+    <h1>{{ message }}</h1>
+ 
+    <button @click="reverseMessage">Reverse Message</button>
+  
+    <button @click="message += '!'">Append "!"</button>
+  
+    <a href="https://vuejs.org" @click.prevent="notify">
+
+    </a>
+  </div>
+</body>
+</html>
