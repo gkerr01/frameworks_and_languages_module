@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 8000
 
+app.use(express.json());
+
+
 const items = [
   {
     id: 0,
@@ -21,7 +24,7 @@ app.get('/items', (req, res) => {
   res.json(items);
 })
 
-app.get('/items/:itemId', (req, res) => {
+app.get('/item/:itemId', (req, res) => {
   const itemId = parseInt(req.params.itemId);
 
   const item = items.find(item => item.id === itemId);
@@ -31,7 +34,15 @@ app.get('/items/:itemId', (req, res) => {
   } else {
     res.status(404).json({ error: 'Item not found' });
   }
-});
+})
+
+app.post('/item', (req, res) => {
+  const newItem = req.body;
+  console.log("post item")
+  console.log(req.body)
+  res.status(201).json(newItem);
+  
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
