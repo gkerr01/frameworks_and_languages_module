@@ -38,8 +38,10 @@ app.get('/item/:itemId', (req, res) => {
 
 app.post('/item', (req, res) => {
   const newItem = req.body;
+  items.push(newItem);
   console.log("post item")
   console.log(req.body)
+  
   res.status(201).json(newItem);
   
 })
