@@ -21,16 +21,16 @@ const items = [
 
 
 app.get('/items', (req, res) => {
-  res.json(items);
+ 
+  res.status(200).json(items)
 })
 
 app.get('/item/:itemId', (req, res) => {
   const itemId = parseInt(req.params.itemId);
-
   const item = items.find(item => item.id === itemId);
 
   if (item) {
-    res.json(item);
+    res.status(200).json(item);
   } else {
     res.status(404).json({ error: 'Item not found' });
   }
@@ -41,9 +41,11 @@ app.post('/item', (req, res) => {
   items.push(newItem);
   console.log("post item")
   console.log(req.body)
-  
   res.status(201).json(newItem);
-  
+})
+
+app.delete('/item/:itemId', (req, res) => {
+  res.status(204).json()
 })
 
 app.listen(port, () => {

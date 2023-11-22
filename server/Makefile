@@ -9,4 +9,4 @@ run:
 local_install:
 	npm install express
 local_run:
-	node app.js
+	node server.js
