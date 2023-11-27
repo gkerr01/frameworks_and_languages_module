@@ -7,20 +7,37 @@ const port = 8000
 app.use(express.json());
 
 
-const items = [
-  {
-    id: 0,
-    user_id: "user12345",
-    keywords: ["hammer", "nails", "tools"],
-    description: "A hammer and nails set",
-    image: "https://placekitten.com/200/300",
-    lat: 51.2798438,
-    lon: 1.0830275,
-    date_from: "2023-10-23T16:53:10.722Z",
-    date_to: "2023-10-23T16:53:10.722Z"
+items = {
+  1: {
+      "id": 1,
+      "user_id": "user1234",
+      "keywords": ["hammer", "nails", "tools"],
+      "description": "A hammer and nails set",
+      "lat": 1,
+      "lon": 1,
+      "date_from": "2021-11-22T08:22:39.067408",
   }
-]
+}
 
+app.get('/', (req, res) => {
+ 
+  res.status(200)
+  res.send('Hello server')
+
+})
+
+app.post('/item', (req, res) => {
+ 
+  if(Object.keys(req.body).sort().toString != "id") {
+    return  res.status(405).json("Missing Fields")
+  }
+  
+  items.push(req.body)
+  res.status(201).json(req.body)
+  
+})
+
+/*
 
 app.get('/items', (req, res) => {
  
@@ -49,6 +66,8 @@ app.post('/item', (req, res) => {
 app.delete('/item/:itemId', (req, res) => {
   res.status(204).json()
 })
+
+*/
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
