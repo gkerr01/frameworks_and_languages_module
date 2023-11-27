@@ -27,15 +27,23 @@ app.get('/', (req, res) => {
 })
 
 app.post('/item', (req, res) => {
- 
+  console.log("Post")
+  console.log(req.body)
+  res.status(201).json()
+  
+})
+
+
+  /*
   if(Object.keys(req.body).sort().toString != "id") {
     return  res.status(405).json("Missing Fields")
   }
   
   items.push(req.body)
-  res.status(201).json(req.body)
   
-})
+  res.status(201).json()
+  */
+
 
 /*
 
