@@ -19,6 +19,7 @@ items = {
   }
 }
 
+// Route for the root endpoint
 app.get('/', (req, res) => {
  
   res.status(200)
@@ -26,13 +27,51 @@ app.get('/', (req, res) => {
 
 })
 
+// Route for handling POST 
 app.post('/item', (req, res) => {
-  console.log("Post")
-  console.log(req.body)
-  res.status(201).json()
-  
+  // Define the required fields for creating a new item
+  const requiredFields = ["user_id", "keywords", "description", "lat", "lon"]
+
+// Check if all required fields are present in the request body
+  const missingFields = requiredFields.filter(field => !(field in req.body))
+
+    // If any required field is missing, respond with a 405 status and a message
+  if (missingFields.length > 0) {
+    return res.status(405).json({ message: `Missing Fields: ${missingFields.join(', ')}` })
+  }
+
+    // Assuming validation is successful, create a new item
+  const newItem = {
+    id: Object.keys(items).length + 1,
+    user_id: req.body.user_id,
+    keywords: req.body.keywords || [],
+    description: req.body.description || "",
+    lat: req.body.lat || null,
+    lon: req.body.lon || null,
+    date_from: req.body.date_from || new Date().toISOString(),
+  }
+
+  items[newItem.id] = newItem
+  res.status(201).json(newItem)
 })
 
+app.get('/item/:itemId', (req, res) => {
+  // Extract itemId from request parameters
+  const itemId = parseInt(req.params.itemId);
+
+  // Check if the item with the specified ID exists
+  if (items[itemId]) {
+    res.status(200).json(items[itemId]);
+  } else {
+    res.status(404).json({ message: 'Item not found' });
+  }
+});
+
+
+// Start the server and listen on the specified port
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 
   /*
   if(Object.keys(req.body).sort().toString != "id") {
@@ -76,7 +115,3 @@ app.delete('/item/:itemId', (req, res) => {
 })
 
 */
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
