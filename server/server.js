@@ -1,9 +1,10 @@
 const express = require('express')
+const cors = require('cors');
 
 const app = express()
 const port = 8000
 
-
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 
@@ -67,51 +68,29 @@ app.get('/item/:itemId', (req, res) => {
   }
 });
 
+app.get('/items', (req, res) => {
+  // Retrieve all items from the items collection
+  const allItems = Object.values(items);
+
+  res.status(200).json(allItems);
+});
+
+app.delete('/item/:itemId', (req, res) => {
+  const itemId = parseInt(req.params.itemId);
+
+  // Check if the item with the specified ID exists
+  if (items[itemId]) {
+    // Delete the item
+    delete items[itemId];
+    // Respond with a 204 status code (No Content) for successful deletion
+    res.status(204).send();
+  } else {
+    // Respond with a 404 status code if the item is not found
+    res.status(404).json({ message: 'Item not found' });
+  }
+});
 
 // Start the server and listen on the specified port
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
-  /*
-  if(Object.keys(req.body).sort().toString != "id") {
-    return  res.status(405).json("Missing Fields")
-  }
-  
-  items.push(req.body)
-  
-  res.status(201).json()
-  */
-
-
-/*
-
-app.get('/items', (req, res) => {
- 
-  res.status(200).json(items)
-})
-
-app.get('/item/:itemId', (req, res) => {
-  const itemId = parseInt(req.params.itemId);
-  const item = items.find(item => item.id === itemId);
-
-  if (item) {
-    res.status(200).json(item);
-  } else {
-    res.status(404).json({ error: 'Item not found' });
-  }
-})
-
-app.post('/item', (req, res) => {
-  const newItem = req.body;
-  items.push(newItem);
-  console.log("post item")
-  console.log(req.body)
-  res.status(201).json(newItem);
-})
-
-app.delete('/item/:itemId', (req, res) => {
-  res.status(204).json()
-})
-
-*/
