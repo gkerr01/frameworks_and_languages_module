@@ -18,8 +18,20 @@
 		<textarea v-model="items.description" name="description" placeholder="description"></textarea>
 		<button>Create Item</button>
 	</form>
-
 	{{ items.user_id }} {{ items.lat }} {{ items.lon }} {{ items.image }} {{ items.keywords }} {{ items.description }}
+	<ul>
+		<li v-for="item of list">
+			{{ item }}
+			<span> {{ item.user_id }}</span>
+			<span> {{ item.lat }}</span>
+			<span> {{ item.lon }}</span>
+			<span> {{ item.image }}</span>
+			<span> {{ item.keywords }}</span>
+			<span> {{ item.description }}</span>
+			<button @click="deleteItems(item.id)">Delete</button>
+		</li>
+	</ul>
+
 </div>
 
 <script type="module">
@@ -29,7 +41,7 @@
 	 const urlParams = new URLSearchParams(window.location.search);
 
 	// Get the value of the 'api' parameter from the URL, or use a default API URL if 'api' is not present
-	const urlAPI = (urlParams.get('api') || 'https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/api/v1').replace(/\/$/, '');
+	const urlAPI = (urlParams.get('api') || 'https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev').replace(/\/$/, '');
 
 
 	createApp({
@@ -43,9 +55,13 @@
 			image: '',
 			keywords: '',
 			description: '',
-		  }
+		  },
+		  list: [],
 		};
 	  },
+	  	
+
+	  
 	  methods: {
 		
 		createItem() {
@@ -87,7 +103,8 @@
 			this.items.description = '';
 
 			// show a success message
-			this.message = 'Item created successfully!';
+			this.message = 'Item created successfully!',
+			this.getItems();
 		  })
 		  .catch(err => {
 			// Handle errors
@@ -96,6 +113,25 @@
 			// show an error message
 			this.message = 'Error creating item. Please try again.';
 		  });
+		},
+		getItems() {
+    		fetch(`https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/items`, {
+       		 method: 'GET',
+   			 })
+        		.then(response => response.json())
+       			.then(json => {
+       	    	 console.log("getItems", json)
+        	      this.list = json  
+       		 })
+   				 .catch(err => console.error(err))
+		},
+		deleteItems(itemId) {
+    		fetch(`https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/item/${itemId}`, {
+        method: 'DELETE',
+    		})
+      		.then(json => console.log('deleted', json))
+			.then(() => this.getItems())
+    	.catch(err => console.error(err));
 		},
 	  },
 	}).mount('#app');
