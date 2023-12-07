@@ -5,10 +5,7 @@ const cors = require('cors')
 const app = express()
 const port = 8000
 
-app.use(cors({
-  origin: ['https://supreme-guide-x44p9gvjrqgcvgxj-8001.app.github.dev']
-}));
-app.options('/item', cors());
+app.use(cors());
 app.use(express.json())
 
 
