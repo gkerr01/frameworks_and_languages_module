@@ -1,0 +1,102 @@
+<script type="importmap">
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  }
+	}
+</script>
+
+<div id="app">
+	{{ message }}
+
+	<form @submit.prevent="createItem">
+		<input v-model="items.user_id" name="user_id" placeholder="user_id">
+		<input v-model="items.lat" name="lat" placeholder="lat">
+		<input v-model="items.lon" name="lon" placeholder="lon">
+		<input v-model="items.image" name="image" placeholder="image">
+		<input v-model="items.keywords" name="keywords" placeholder="keywords">
+		<textarea v-model="items.description" name="description" placeholder="description"></textarea>
+		<button>Create Item</button>
+	</form>
+
+	{{ items.user_id }} {{ items.lat }} {{ items.lon }} {{ items.image }} {{ items.keywords }} {{ items.description }}
+</div>
+
+<script type="module">
+	import { createApp, ref } from 'vue';
+
+	 // Create a new instance of URLSearchParams with the current window's location search parameters
+	 const urlParams = new URLSearchParams(window.location.search);
+
+	// Get the value of the 'api' parameter from the URL, or use a default API URL if 'api' is not present
+	const urlAPI = (urlParams.get('api') || 'https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/api/v1').replace(/\/$/, '');
+
+
+	createApp({
+	  data() {
+		return {
+		  message: 'Hello Vue!',
+		  items: {
+			user_id: '',
+			lat: '',
+			lon: '',
+			image: '',
+			keywords: '',
+			description: '',
+		  }
+		};
+	  },
+	  methods: {
+		
+		createItem() {
+		  // Log the current state of items
+		  console.log(this.items);
+
+		  // Convert items to a dictionary
+		  const payload = {
+			user_id: this.items.user_id,
+			lat: this.items.lat,
+			lon: this.items.lon,
+			image: this.items.image,
+			keywords: this.items.keywords,
+			description: this.items.description,
+		  };
+
+		  // Send a POST request to the server
+		  fetch('https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/item', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(payload),
+		  })
+		  .then(response => {
+			if (!response.ok) {
+			  throw new Error('Network response was not ok');
+			}
+			return response.json();
+		  })
+		  .then(json => {
+			// Handle the response data
+			console.log('Item created successfully:', json);
+
+			// Clear form fields after successful submission
+			this.items.user_id = '';
+			this.items.lat = '';
+			this.items.lon = '';
+			this.items.image = '';
+			this.items.keywords = '';
+			this.items.description = '';
+
+			// show a success message
+			this.message = 'Item created successfully!';
+		  })
+		  .catch(err => {
+			// Handle errors
+			console.error('Error creating item:', err);
+
+			// show an error message
+			this.message = 'Error creating item. Please try again.';
+		  });
+		},
+	  },
+	}).mount('#app');
+</script>

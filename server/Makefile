@@ -9,5 +9,6 @@ run:
 local_install:
 	npm install express
 	npm install cors
+
 local_run:
 	node server.js
