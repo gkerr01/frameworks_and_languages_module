@@ -1,31 +1,89 @@
 <script type="importmap">
 	{
 	  "imports": {
-		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+		"bulma": "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
 	  }
 	}
 </script>
 
-<div id="app">
-	{{ message }}
 
-	<form @submit.prevent="createItem">
-		<input v-model="items.user_id" name="user_id" placeholder="user_id">
-		<input v-model="items.lat" name="lat" placeholder="lat">
-		<input v-model="items.lon" name="lon" placeholder="lon">
-		<input v-model="items.image" name="image" placeholder="image">
-		<input v-model="items.keywords" name="keywords" placeholder="keywords">
-		<textarea v-model="items.description" name="description" placeholder="description"></textarea>
-		<button>Create Item</button>
-	</form>
-	{{ items.user_id }} {{ items.lat }} {{ items.lon }} {{ items.image }} {{ items.keywords }} {{ items.description }}
+
+<div id="app">
+	<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+	  <div class="navbar-brand">
+		<a class="navbar-item" href="https://bulma.io">
+		  <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+		</a>
+		<div class="navbar-burger" data-target="navbarExampleTransparentExample">
+		  <span></span>
+		  <span></span>
+		  <span></span>
+		</div>
+	  </div>
+  
+	  
+  
+	<div class="columns is-desktop">
+		<div class="column">
+		  <form @submit.prevent="createItem">
+			<div class="field">
+			  <label class="label">User ID</label>
+			  <div class="control">
+				<input v-model="items.user_id" class="input" name="user_id" placeholder="User ID">
+			  </div>
+			</div>
+	  
+			<div class="field">
+			  <label class="label">Latitude</label>
+			  <div class="control">
+				<input v-model="items.lat" class="input" name="lat" placeholder="Latitude">
+			  </div>
+			</div>
+	  
+			<div class="field">
+			  <label class="label">Longitude</label>
+			  <div class="control">
+				<input v-model="items.lon" class="input" name="lon" placeholder="Longitude">
+			  </div>
+			</div>
+	  
+			<div class="field">
+			  <label class="label">Image</label>
+			  <div class="control">
+				<input v-model="items.image" class="input" name="image" placeholder="Image URL">
+			  </div>
+			</div>
+	  
+			<div class="field">
+			  <label class="label">Keywords</label>
+			  <div class="control">
+				<input v-model="items.keywords" class="input" name="keywords" placeholder="Keywords">
+			  </div>
+			</div>
+	  
+			<div class="field">
+			  <label class="label">Description</label>
+			  <div class="control">
+				<textarea v-model="items.description" class="textarea" name="description" placeholder="Description"></textarea>
+			  </div>
+			</div>
+	  
+			<div class="control">
+			  <button class="button is-primary">Create Item</button>
+			</div>
+		  </form>
+		</div>
+	  </div>
 	<ul>
 		<li v-for="item of list">
 			{{ item }}
 			<span> {{ item.user_id }}</span>
 			<span> {{ item.lat }}</span>
 			<span> {{ item.lon }}</span>
-			<span> {{ item.image }}</span>
+			<div v-if="item.image">
+				<img :src="item.image" alt="Item Image" style="max-width: 100%; height: auto;">
+			</div>
 			<span> {{ item.keywords }}</span>
 			<span> {{ item.description }}</span>
 			<button @click="deleteItems(item.id)">Delete</button>
@@ -47,7 +105,7 @@
 	createApp({
 	  data() {
 		return {
-		  message: 'Hello Vue!',
+		 
 		  items: {
 			user_id: '',
 			lat: '',

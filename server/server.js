@@ -89,6 +89,7 @@ app.delete('/item/:itemId', (req, res) => {
 
   // Check if the item with the specified ID exists
   if (items[itemId]) {
+    
     // Delete the item
     delete items[itemId]
     // Respond with a 204 status code (No Content) for successful deletion
