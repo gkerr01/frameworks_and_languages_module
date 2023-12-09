@@ -10,6 +10,7 @@
 
 
 <div id="app">
+	{{ message }}
 	<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
 	  <div class="navbar-brand">
 		<a class="navbar-item" href="https://bulma.io">
@@ -70,7 +71,7 @@
 			</div>
 	  
 			<div class="control">
-			  <button class="button is-primary">Create Item</button>
+			  <button class="button is-primary" data-action="create_item">create_item</button>
 			</div>
 		  </form>
 		</div>
@@ -93,7 +94,9 @@
 </div>
  
 <script type="module">
-	import { createApp, ref } from 'vue';
+	import { createApp, ref } from 'vue' ;
+	
+	
 
 	 // Create a new instance of URLSearchParams with the current window's location search parameters
 	 const urlParams = new URLSearchParams(window.location.search);
@@ -105,7 +108,7 @@
 	createApp({
 	  data() {
 		return {
-		 
+			message: 'freecycle',
 		  items: {
 			user_id: '',
 			lat: '',
