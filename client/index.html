@@ -1,31 +1,42 @@
-<script type="importmap">
-	{
-	  "imports": {
-		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
-		"bulma": "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-	  }
-	}
-</script>
-
-
-
-<div id="app">
-	{{ message }}
-	<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
-	  <div class="navbar-brand">
-		<a class="navbar-item" href="https://bulma.io">
-		  <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-		</a>
-		<div class="navbar-burger" data-target="navbarExampleTransparentExample">
-		  <span></span>
-		  <span></span>
-		  <span></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>freecycle</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+	
+	<nav class="navbar is-active has-shadow "  aria-label="main navigation">
+		<div class="navbar-brand">
+		  <a class="navbar-item" href="https://bulma.io">
+			<img src="https://img.icons8.com/?size=30&id=61056&format=png" alt="logo" width="50" height="50">
+		  </a> 
+		  <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+			<span ></span>
+			<span ></span>
+			<span ></span>
+		  </a>
 		</div>
-	  </div>
-  
-	  
-  
-	<div class="columns is-desktop">
+		
+		  <div class="navbar-menu" id="nav-links">
+			<div class="navbar-end">
+			<a class="navbar-item">my account</a>
+		  </div>
+		</div>
+	</nav>
+
+	<div id="app">
+
+        <div class="block">
+            
+        </div>
+
+		<div class="block">
+            Please input below.
+        </div>
+
+		<div class="columns is-3-mobile is-1-desktop">
 		<div class="column">
 		  <form @submit.prevent="createItem">
 			<div class="field">
@@ -71,28 +82,44 @@
 			</div>
 	  
 			<div class="control">
-			  <button class="button is-primary" data-action="create_item">create_item</button>
+			  <button class="button is-primary is-medium" data-action="create_item">Create Item</button>
 			</div>
 		  </form>
 		</div>
 	  </div>
-	<ul>
-		<li v-for="item of list" >
-			{{ item }}
-			<span> {{ item.user_id }}</span>
-			<span> {{ item.lat }}</span>
-			<span> {{ item.lon }}</span>
-			<div v-if="item.image">
-				<img :src="item.image" alt="Item Image" style="max-width: 100%; height: auto;">
+	  {{ message }}
+	  <div class="columns is-3-mobile is-desktop">
+		<div class="column" v-for="item of list" :key="item.id">
+			<div class="box">
+			<ul>	
+				<li>
+				<p><strong>User ID:</strong> {{ item.user_id }}</p>
+				<p><strong>Latitude:</strong> {{ item.lat }}</p>
+				<p><strong>Longitude:</strong> {{ item.lon }}</p>
+				<div v-if="item.image">
+					<img :src="item.image" alt="Item Image" style="max-width: 100%; height: auto;">
+				</div>
+				<p><strong>Keywords:</strong> {{ item.keywords }}</p>
+				<p><strong>Description:</strong> {{ item.description }}</p>
+				<button @click="deleteItems(item.id)" class="button is-danger">Delete</button>
+				</li>
+			</ul>	
 			</div>
-			<span> {{ item.keywords }}</span>
-			<span> {{ item.description }}</span>
-			<button @click="deleteItems(item.id)">Delete</button>
-		</li>
-	</ul>
+		</div>
+	</div>
 
 </div>
- 
+
+
+
+<script type="importmap">
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  }
+	}
+</script>
+
 <script type="module">
 	import { createApp, ref } from 'vue' ;
 	
@@ -197,3 +224,14 @@
 	  },
 	}).mount('#app');
 </script>
+
+<script>//mobile menu
+const burgerIcon = document.querySelector('.navbar-burger');
+const navbarMenu = document.querySelector('.navbar-menu');
+
+burgerIcon.addEventListener('click', () => {
+    navbarMenu.classList.toggle('is-active');
+});
+
+</script>
+</body>

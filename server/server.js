@@ -51,7 +51,7 @@ app.post('/item', (req, res) => {
     description: req.body.description || "",
     lat: req.body.lat || null,
     lon: req.body.lon || null,
-    date_from: req.body.date_from || new Date().toISOString().replace('Z',""), // replaced  Z with an empty string as pyhton has updated to 3.12 halfway though the module 
+    date_from: req.body.date_from || new Date().toISOString().replace('Z',""), // replaced  Z with an empty string as python has updated to 3.12 halfway though the module 
   }
 
   items[newItem.id] = newItem
