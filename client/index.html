@@ -6,13 +6,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-	
+
+	  <!-- Navigation Bar -->
 	<nav class="navbar is-active has-shadow "  aria-label="main navigation">
 		<div class="navbar-brand">
+			 <!-- Brand Logo -->
 		  <a class="navbar-item" href="https://bulma.io">
 			<img src="https://img.icons8.com/?size=30&id=61056&format=png" alt="logo" width="50" height="50">
 		  </a> 
+		   <!-- Brand Title -->
 		  <p class="title is-4 ">Freecycle</p>
+		   <!-- Mobile Menu Toggle Button -->
 		  <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
 			<span ></span>
 			<span ></span>
@@ -20,6 +24,7 @@
 		  </a>
 		</div>
 		
+		   <!-- Navbar Menu -->
 		  <div class="navbar-menu" id="nav-links">
 			<div class="navbar-end">
 			<a class="navbar-item">my account</a>
@@ -29,19 +34,21 @@
 		</div>
 	</nav>
 
+	 <!-- Vue App Container -->
 	<div id="app">
 
-        <div class="block">
-            
-        </div>
-
+		  <!-- Block Sections -->
+        <div class="block"></div>
 		<div class="block">
             Please input below.
         </div>
 
+		<!-- Form Section -->
 		<div class="columns is-3-mobile is-1-desktop">
 		<div class="column">
+		 <!-- Form for Creating Items -->
 		  <form @submit.prevent="createItem">
+			 <!-- Input Fields -->
 			<div class="field">
 			  <label class="label">User ID</label>
 			  <div class="control">
@@ -83,19 +90,24 @@
 				<textarea v-model="items.description" class="textarea" name="description" placeholder="Description"></textarea>
 			  </div>
 			</div>
-	  
+	  		<!-- Submit Button -->
 			<div class="control">
 			  <button class="button is-primary is-medium" data-action="create_item">Create Item</button>
 			</div>
 		  </form>
 		</div>
 	  </div>
+
+ <!-- Display Message Section -->
 	  {{ message }}
+
+   <!-- List Items Section -->
 	  <div class="columns is-3-mobile is-desktop">
 		<div class="column" v-for="item of list" :key="item.id">
 			<div class="box">
 			<ul>
 				<li>
+				 <!-- Display Item Details -->
 				<p><strong>User ID:</strong> {{ item.user_id }}</p>
 				<p><strong>Latitude:</strong> {{ item.lat }}</p>
 				<p><strong>Longitude:</strong> {{ item.lon }}</p>
@@ -104,17 +116,17 @@
 				</div>
 				<p><strong>Keywords:</strong> {{ item.keywords }}</p>
 				<p><strong>Description:</strong> {{ item.description }}</p>
+				 <!-- Delete Button -->
 				<button @click="deleteItems(item.id)" class="button is-danger">Delete</button>
 				</li>
 			</ul>	
 			</div>
 		</div>
 	</div>
-
 </div>
 
 
-
+ <!-- Import Vue and Set Up Vue App -->
 <script type="importmap">
 	{
 	  "imports": {
@@ -123,7 +135,9 @@
 	}
 </script>
 
+  <!-- Vue App Script -->
 <script type="module">
+	// Import necessary functions from Vue
 	import { createApp, ref } from 'vue' ;
 	
 	
@@ -152,9 +166,9 @@
 	  },
 	  	
 
-	  
+	  // Methods for handling actions
 	  methods: {
-		
+		 // Method for creating a new item
 		createItem() {
 		  // Log the current state of items
 		  console.log(this.items);
@@ -176,6 +190,7 @@
 			body: JSON.stringify(payload),
 		  })
 		  .then(response => {
+			 // Check if the network response was successful
 			if (!response.ok) {
 			  throw new Error('Network response was not ok');
 			}
@@ -205,6 +220,7 @@
 			this.message = 'Error creating item. Please try again.';
 		  });
 		},
+		  // Method for fetching items from the server
 		getItems() {
     		fetch(`https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/items`, {
        		 method: 'GET',
@@ -212,28 +228,38 @@
         		.then(response => response.json())
        			.then(json => {
        	    	 console.log("getItems", json)
+				   // Update the list of items
         	      this.list = json  
        		 })
    				 .catch(err => console.error(err))
 		},
+		// Method for deleting an item
 		deleteItems(itemId) {
     		fetch(`https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/item/${itemId}`, {
         method: 'DELETE',
     		})
+			// Log the result of the deletion
       		.then(json => console.log('deleted', json))
+			// Fetch the updated list of items
 			.then(() => this.getItems())
-    	.catch(err => console.error(err));
+    		.catch(err => console.error(err));
 		},
 	  },
 	}).mount('#app');
 </script>
 
-<script>//mobile menu
+<!-- Mobile Menu Script -->
+<script>
+	// Select the burger icon element in the DOM
 const burgerIcon = document.querySelector('.navbar-burger');
+	// Select the navbar menu element in the DOM
 const navbarMenu = document.querySelector('.navbar-menu');
 
+// Add a click event listener to the burger icon
 burgerIcon.addEventListener('click', () => {
-    navbarMenu.classList.toggle('is-active');
+     // Toggle the 'is-active' class on the navbar menu
+    // This class is typically used in Bulma to show/hide the mobile menu
+	navbarMenu.classList.toggle('is-active');
 });
 
 </script>

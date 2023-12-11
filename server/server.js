@@ -1,15 +1,19 @@
+// Import necessary modules
 const express = require('express')
 const cors = require('cors')
 
-
+// Create an Express application
 const app = express()
+// Specify the port for the server to listen on
 const port = 8000
 
+// Enable Cross-Origin Resource Sharing (CORS)
 app.use(cors());
+// Parse incoming JSON requests
 app.use(express.json())
 
 
-
+// Initial items data
 items = {
   1: {
       "id": 1,
@@ -60,7 +64,7 @@ app.post('/item', (req, res) => {
   res.status(201).json(newItem)
 })
 
-
+// Route for getting a specific item by ID
 app.get('/item/:itemId', (req, res) => {
   // Extract itemId from request parameters
   const itemId = parseInt(req.params.itemId)
@@ -76,7 +80,7 @@ app.get('/item/:itemId', (req, res) => {
 
 
 
-
+// Route for getting all items
 app.get('/items', (req, res) => {
   // Retrieve all items from the items collection
   const allItems = Object.values(items)
@@ -84,6 +88,7 @@ app.get('/items', (req, res) => {
   res.status(200).json(allItems)
 })
 
+// Route for deleting an item by ID
 app.delete('/item/:itemId', (req, res) => {
   const itemId = parseInt(req.params.itemId)
 
