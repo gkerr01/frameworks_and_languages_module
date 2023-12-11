@@ -3,12 +3,10 @@ Freecycle
 Table of Contents
 Overview
 Getting Started
-Features
-Usage
+Curl commands
 API Endpoints
 Dependencies
-Contributing
-License
+
 
 Overview
 HTML (Bulma and Vue.js):
