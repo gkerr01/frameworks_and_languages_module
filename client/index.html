@@ -92,7 +92,7 @@
 			</div>
 	  		<!-- Submit Button -->
 			<div class="control">
-			  <button class="button is-primary is-medium" data-action="create_item">Create Item</button>
+			  <button class="button is-primary is-small" data-action="create_item">Create Item</button>
 			</div>
 		  </form>
 		</div>
@@ -117,7 +117,7 @@
 				<p><strong>Keywords:</strong> {{ item.keywords }}</p>
 				<p><strong>Description:</strong> {{ item.description }}</p>
 				 <!-- Delete Button -->
-				<button @click="deleteItems(item.id)" class="button is-danger">Delete</button>
+				<button @click="deleteItem(item.id)" class="button is-danger">Delete</button>
 				</li>
 			</ul>	
 			</div>
@@ -229,8 +229,8 @@
        		 })
    				 .catch(err => console.error(err))
 		},
-		// Method for deleting an item
 
+		// Method for deleting an item
 		deleteItem(item_id) {
 			fetch(`${urlAPI}/item/${item_id}`, {
 			 method: 'DELETE',

@@ -80,6 +80,7 @@ describe('FreeCycle', () => {
 	})
 
 	it('Create and Delete Item', () => {
+		cy.scrollTo('bottom')
 		cy.create_item()
 			.then(item_id => {
 				cy.delete_item(item_id);
