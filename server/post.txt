@@ -13,7 +13,7 @@ curl -X GET http://localhost:8000/item/1 | jq
 curl -X GET http://localhost:8000/items?user_id=user1234
 curl -X DELETE http://localhost:8000/item/1
 
-python3 -m  http.server 8001
+python -m  http.server 8001
 
 RUN "python3", "-m", "http.server 8001"
 

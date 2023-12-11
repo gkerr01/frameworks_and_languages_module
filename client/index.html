@@ -141,13 +141,9 @@
 	import { createApp, ref } from 'vue' ;
 	
 	
-
-	 // Create a new instance of URLSearchParams with the current window's location search parameters
-	 const urlParams = new URLSearchParams(window.location.search);
-
-	// Get the value of the 'api' parameter from the URL, or use a default API URL if 'api' is not present
-	const urlAPI = (urlParams.get('api') || 'https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev').replace(/\/$/, '');
-
+	
+	const urlParams = new URLSearchParams(window.location.search);
+    const urlAPI = (urlParams.get('api') || '/api/v1').replace(/\/$/, '');
 
 	createApp({
 	  data() {
@@ -184,7 +180,7 @@
 		  };
 
 		  // Send a POST request to the server
-		  fetch('https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/item', {
+		  fetch(`${urlAPI}/item`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(payload),
@@ -222,7 +218,7 @@
 		},
 		  // Method for fetching items from the server
 		getItems() {
-    		fetch(`https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/items`, {
+			fetch(`${urlAPI}/items`, {
        		 method: 'GET',
    			 })
         		.then(response => response.json())
@@ -234,15 +230,13 @@
    				 .catch(err => console.error(err))
 		},
 		// Method for deleting an item
-		deleteItems(itemId) {
-    		fetch(`https://supreme-guide-x44p9gvjrqgcvgxj-8000.app.github.dev/item/${itemId}`, {
-        method: 'DELETE',
-    		})
-			// Log the result of the deletion
-      		.then(json => console.log('deleted', json))
-			// Fetch the updated list of items
-			.then(() => this.getItems())
-    		.catch(err => console.error(err));
+
+		deleteItem(item_id) {
+			fetch(`${urlAPI}/item/${item_id}`, {
+			 method: 'DELETE',
+			 })
+        		.then(json => console.log('deleteItem()', json))
+    			.catch(err => console.error(err));
 		},
 	  },
 	}).mount('#app');
