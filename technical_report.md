@@ -154,7 +154,7 @@ The primary purpose of require is to load external modules and the modules can b
 Node.js modules organize code, promote reusability, and enhance maintainability. Benefits include better code structure, improved collaboration, and efficient debugging. 
 
 
-### (name of Feature 2)
+### (Python 3.12:)
 
 During the course of my assessment 1, python had updated itself when it came to passing the pytests within the assessment. This updates in particular was a workaround for potential issues with Python 3.12 updates, particularly in the handling of date strings.
 This meant that i had to hard code into my server a way round for the test to pass into the string below.
@@ -163,13 +163,8 @@ This meant that i had to hard code into my server a way round for the test to pa
 // https://supreme-guide-x44p9gvjrqgcvgxj.github.dev//workspaces/frameworks_and_languages_module/server/server.js
 
 The code snippet above is the route handler for handling POST requests to the "/item" endpoint. Specifically, it's responsible for creating a new item based on the data provided in the request body. i had to use the .replace('Z', "") to remove the 'Z' character at the end of the ISO string. 
-The .replace('Z', "") in the date handling addresses compatibility issues arising from Python 3.12 updates when trying to run the pytests. It ensures seamless integration by formatting date strings consistently, resolving potential discrepancies and ensuring the server processes dates correctly.
+The .replace('Z', "") in the date handling addresses compatibility issues arising from Python 3.12 updates when trying to run the pytests. It ensures seamless integration by formatting date strings consistently, resolving potential discrepancies and ensuring the server processes dates correctly. Using Python 3.12 (Oct. 2, 2023).
 
-
-(Technical description of the feature - 40ish words)
-(A code block snippet example demonstrating the feature)
-(Explain the problem-this-is-solving/why/benefits/problems - 40ish words)
-(Provide reference urls to your sources of information about the feature - required)
 
 
 
@@ -234,3 +229,5 @@ Using Express Routing (no date). Available at: https://expressjs.com/en/guide/ro
 Using Express Cors (no date). Available at: https://expressjs.com/en/resources/middleware/cors.html (Accessed: 4 January 2024).
 
 Using nodejs Modules (no date). Available at: https://nodejs.org/dist/latest-v4.x/docs/api/modules.html#modules_modules (Accessed: 4 January 2024).
+
+Using Python 3.12 (Oct. 2, 2023). Available at: https://www.python.org/downloads/release/python-3120/?ref=upstract.com (Accessed: 4 January 2024).
