@@ -1,14 +1,14 @@
 Technical Report
 ================
 
-This report is a comprehensive review of the research we did on programming languages and frameworks. The main goal is to demonstrate a deep understanding of frameworks, including their fundamental principles, programming uses, and particular benefits for software testing. By analysing frameworks, explaining their functions and highlighting their importance in the field of software testing, we can demonstrate that these technological elements are essential to the process of developing software. 
+This report is a comprehensive review of the research I did on programming languages and frameworks. The main goal is to demonstrate a deep understanding of frameworks, including their fundamental principles, programming uses, and particular benefits for software testing. By analysing frameworks, explaining their functions and highlighting their importance in the field of software testing, we can demonstrate that these technological elements are essential to the process of developing software. 
 
 
 Critique of Server/Client prototype
 ---------------------
 
 ### Overview of Client prototype
-The client prototype is a simple web client for the FreeCycle platform, enabling straightforward item creation, management, and listing, along with user authentication. It uses  JavaScript to manage functionalities such as parsing URL parameters for the API endpoints, handling item operations, and facilitating a user-friendly interface. it uses css for a simple and straightforward styling approach to maintain readability and ease of understanding.
+The client prototype is a simple web client for the FreeCycle platform, enabling straightforward item creation, management, and listing, along with user authentication. It uses JavaScript to manage functionalities such as parsing URL parameters for the API endpoints, handling item operations, and facilitating a user-friendly interface. It uses css for a simple and straightforward styling approach to maintain readability and ease of understanding.
 
 ### (duplicate IDs for HTML elements)
 
@@ -27,7 +27,7 @@ One critique I have is around the duplicate IDs for HTML elements. For example, 
 
 ### Overview of Server prototype
 
-The server prototype is a basic http server that implements python. The server parses HTTP requests, handles errors, and generates HTTP responses. It listens on a specified port, executes a provided app function, and responds to incoming HTTP requests.
+The server prototype is a basic http server that implements python. The server parses HTTP requests, handles errors, and generates HTTP responses. It listens on a specified port, executes a provided app function and responds to incoming HTTP requests.
 
 
 ### (Multiple hhtp requests )
@@ -61,9 +61,10 @@ while  True:
 
 
 Within the code above, there is an issue that the server is not designed to handle multiple HTTP requests concurrently. this is because it uses a simple loop to wait for and process incoming connections one at a time. This could lead to poor performance, especially under high loads.
- 
+
+
 ### Recommendation
-These previous implementations should not be used due to its simplicity, potential security vulnerabilities, incomplete features, hardcoded values and limited functionality. They also  lack scalability, maintainability, and adherence to best practices, making them unsuitable for real-world applications where reliability and security are paramount.
+These previous implementations should not be used due to its simplicity, potential security vulnerabilities, incomplete features, hardcoded values and limited functionality. They also lack scalability, maintainability, making them unsuitable for real-world applications where reliability and security are paramount.
 
 To overcome these limitations and drawbacks, it would be best to adopt established frameworks. Frameworks provide structured development, enhance security through community-driven updates, ensure scalability, and promote best practices, leading to robust, maintainable, and secure applications.
 
@@ -103,7 +104,7 @@ app.delete('/item/:itemId', (req, res) => {
 // https://supreme-guide-x44p9gvjrqgcvgxj.github.dev//workspaces/frameworks_and_languages_module/server/server.js
 DELETE /item/:itemId: above from my server deletes the item with the specified ID. Responds with 204 (No Content) on successful deletion, or 404 if the item is not found.
 
-These endpoints are particularly useful as  they allow developers to handle different types of client requests based on the intended action from these defined routing methods like app.get() and app.post(), are correspond to specific HTTP methods (GET, POST, etc.). They also provide a clear and structured way to organize different functionalities or resources based on the URL.  (Using Express Routing, no date)
+These endpoints are particularly useful as they allow developers to handle different types of client requests based on the intended action from these defined routing methods like app.get() and app.post() are correspond to specific HTTP methods (GET, POST, etc.). They also provide a clear and structured way to organize different functionalities or resources based on the URL.  (Using Express Routing, no date)
 
 
 
@@ -118,8 +119,7 @@ app.get('/item/:itemId', (req, res) => {
 
 (Using Express Routing, no date)
 
-In Express, the route parameter :itemId captures dynamic values from the URL. Accessed through req.params.itemId, it enables tailored handling of GET requests, facilitating dynamic data retrieval and processing based on the specified parameter value. 
-Route parameters improve the readability of URLs, and meaningful identifiers are incorporated into paths to provide readable human-friendly code. Furthermore, route handlers facilitate modular and reusable code by effectively handling multiple instances of a resource by using captured parameter values found in req.params. 
+In Express, the route parameter :itemId captures dynamic values from the URL. Accessed through req.params.itemId, it enables customable handling of GET requests, facilitating dynamic data retrieval and processing based on the specified parameter value. these route parameters improve the readability of URLs, and meaningful identifiers are incorporated into paths to provide readable human-friendly code. Furthermore, route handlers allow for modular and reusable code by effectively handling multiple instances of a resource by using captured parameter values found in req.params. 
 
 
 
@@ -128,7 +128,7 @@ Route parameters improve the readability of URLs, and meaningful identifiers are
 app.use(cors());
 // https://supreme-guide-x44p9gvjrqgcvgxj.github.dev//workspaces/frameworks_and_languages_module/server/server.js
 
-In the provided Code snippet above, CORS middleware app.use(cors()), is implemented to manage cross-origin requests. This enhances server security by specifying which origins can access its resources, promoting secure and controlled cross-origin interactions. This means that CORS headers are set for all incoming requests, allowing cross-origin resource sharing universally by using app.use(cors()). Using Express Cors (no date)
+In the provided Code snippet above, CORS middleware app.use(cors()), is used to manage cross-origin requests. This enhances server security by specifying which origins can access its resources, promoting secure and controlled cross-origin interactions. This means that CORS headers are set for all incoming requests, allowing cross-origin resource sharing universally by using app.use(cors()). Using Express Cors (no date)
 
 app.use(express.json()); 
 // https://supreme-guide-x44p9gvjrqgcvgxj.github.dev//workspaces/frameworks_and_languages_module/server/server.js
@@ -168,58 +168,125 @@ The .replace('Z', "") in the date handling addresses compatibility issues arisin
 
 
 
-Client Framework Features
+Vue and Bulma Client Framework Features
 -------------------------
 
-### (name of Feature 1)
+### (Vue Data Bindings)
 
-(Technical description of the feature - 40ish words)
-(A code block snippet example demonstrating the feature)
-(Explain the problem-this-is-solving/why/benefits/problems - 40ish words)
-(Provide reference urls to your sources of information about the feature - required)
+I used v-model directives to establish two-way data bindings between my form input fields and the data properties (items.user_id, items.lat, etc.). This ensures that changes in the form fields are reflected in the data and vice versa.
+
+<div class="columns is-3-mobile is-1-desktop">
+  <div class="column">
+    <!-- Form for Creating Items -->
+    <form @submit.prevent="createItem">
+      <!-- Input Fields -->
+      <div class="field">
+        <label class="label">User ID</label>
+        <div class="control">
+          <!-- v-model used here -->
+          <input v-model="items.user_id" class="input" name="user_id" placeholder="User ID">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+//  https://supreme-guide-x44p9gvjrqgcvgxj.github.dev/workspaces/frameworks_and_languages_module/client/index.html
 
 
-### (name of Feature 2)
-
-(Technical description of the feature - 40ish words)
-(A code block snippet example demonstrating the feature)
-(Explain the problem-this-is-solving/why/benefits/problems - 40ish words)
-(Provide reference urls to your sources of information about the feature - required)
+In each input field (User ID, Latitude, Longitude, Image, Keywords, and Description), i have used v-model to bind the input value to the corresponding property in the items object. This two-way data binding simplifies the synchronization between the UI and the data model, enhancing the overall user experience. Using Vue V-Model (no Date).
 
 
-### (name of Feature 3)
+### (Fetch)
 
-(Technical description of the feature - 40ish words)
-(A code block snippet example demonstrating the feature)
-(Explain the problem-this-is-solving/why/benefits/problems - 40ish words)
-(Provide reference urls to your sources of information about the feature - required)
+In Vue.js applications, the  fetch API is used for making HTTP requests to interact with a server-side API. It replaces XMLHttpRequest with a more powerful and flexible feature set. Using Vue Fetch (no Date). Using native fetch in Vue.js ensures modern browser support, leverages Promises for clean asynchronous code, maintains a consistent API design, and seamlessly integrates with Vue methods, simplifying asynchronous operations and enhancing code readability. This is shown below from my assessment 1.
+
+ fetch(`${urlAPI}/item`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+
+//  https://supreme-guide-x44p9gvjrqgcvgxj.github.dev/workspaces/frameworks_and_languages_module/client/index.html
+
+
+### (Grid System)
+
+Within my implementation of Bulma I Used a grid system to structure the layout of the web application.
+
+<div class="columns is-3-mobile is-1-desktop">
+  <div class="column">
+    <!-- Form for Creating Items -->
+    <form @submit.prevent="createItem">
+      <!-- Input Fields -->
+      <div class="field">
+        <label class="label">User ID</label>
+        <div class="control">
+          <!-- v-model used here -->
+          <input v-model="items.user_id" class="input" name="user_id" placeholder="User ID">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+//  https://supreme-guide-x44p9gvjrqgcvgxj.github.dev/workspaces/frameworks_and_languages_module/client/index.html
+
+The outermost div with the class columns represents a grid container. In Bulma, this class is used to create a horizontal grid where you can place columns. The is-3-mobile and is-1-desktop classes are part of Bulma's responsive design and determine the column width based on the screen size.
+is-3-mobile: The column takes up 3 units on mobile devices.
+is-1-desktop: The column takes up 1 unit on desktop devices.
+
+By utilizing Bulma's grid system, a responsive layout is made that adapts to different screen sizes. The use of the columns classes means that the content is organized in a structured manner, and the responsiveness is handled by Bulma's predefined classes. This grid system creates a visually appealing and consistent layout across various devices which would not be structured witout a framework. Using Bulma Columns (no Date).
+
 
 
 Client Language Features
 ------------------------
 
-### (name of Feature 1)
+### (Menu Script)
 
-(Technical description of the feature - 40ish words)
-(A code block snippet example demonstrating the feature)
-(Explain the problem-this-is-solving/why/benefits/problems - 40ish words)
-(Provide reference urls to your sources of information about the feature - required)
 
-### (name of Feature 2)
+In the mobile menu script, I've used JavaScript to select the burger icon and navbar menu elements. When the burger icon is clicked, it toggles the 'is-active' class on the navbar menu, enabling mobile menu visibility.  Using Bulma Navbar (No Date).
 
-(Technical description of the feature - 40ish words)
-(A code block snippet example demonstrating the feature)
-(Explain the problem-this-is-solving/why/benefits/problems - 40ish words)
-(Provide reference urls to your sources of information about the feature - required)
+<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+</a>
+ 
+<!-- Mobile Menu Script -->
+<script>
+    const burgerIcon = document.querySelector('.navbar-burger');
+    const navbarMenu = document.querySelector('.navbar-menu');
 
+    burgerIcon.addEventListener('click', () => {
+        navbarMenu.classList.toggle('is-active');
+    });
+</script>
+//  https://supreme-guide-x44p9gvjrqgcvgxj.github.dev/workspaces/frameworks_and_languages_module/client/index.html
+
+
+The mobile menu script enhances user experience by toggling menu visibility, providing seamless navigation. It solves the problem of limited screen space on mobile devices, ensuring users can easily access and interact with the menu, improving overall usability and accessibility.
+
+### (External Stylesheet Link)
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+//  https://supreme-guide-x44p9gvjrqgcvgxj.github.dev/workspaces/frameworks_and_languages_module/client/index.html
+
+
+The snippet above utilizes the <link> HTML tag to include an external stylesheet in the HTML document. This tag to the Bulma CSS framework, version 0.9.4, in particular specifies the relationship as a stylesheet, ensuring consistent styling and responsive design across the website.
+External stylesheet links provide consistent, easily maintained design across pages. They reduce page size  and enable global application of styles. This ensures efficient, scalable, and collaborative development workflows.
 
 
 Conclusions
 -----------
 
-(justify why frameworks are recommended - 120ish words)
-(justify which frameworks should be used and why 180ish words)
+In conclusion, the assessment of the client and server prototypes emphasises how important frameworks are to modern software development. These frameworks deliver structured, scalable, and secure solutions, adhering to best practices and significantly enhancing development efficiency.  They follow best practices and increase develo pment efficiency while promoting security and dependability. In essence, frameworks provide a solid foundation for building resilient and secure software applications.
 
+
+To conclude, selecting the right frameworks is crucial for robust and scalable software development. Adopting established frameworks like Express for server-side development and Vue.js with Bulma for the client-side offers numerous advantages. Express simplifies server implementation by providing a structured, modular, and scalable architecture, enhancing security through middleware like CORS, and promoting best practices in routing and error handling. Its active community support ensures ongoing updates and improvements, contributing to reliability.
+
+On the client side, Vue.js facilitates seamless two-way data binding, making UI updates efficient and responsive. Coupled with Bulma's grid system and styling capabilities, it ensures a visually appealing and consistently structured user interface across devices. Vue.js and Bulma collectively enhance development speed, maintainability, and code readability. Additionally, the use of external stylesheets and CDN links ensures standardized styling and improves page loading performance. In summary, these chosen frameworks provide a well-balanced blend of efficiency, security, and maintainability, laying a strong foundation for developing reliable and scalable software applications.
 
 
 ### Bibliography
@@ -231,3 +298,11 @@ Using Express Cors (no date). Available at: https://expressjs.com/en/resources/m
 Using nodejs Modules (no date). Available at: https://nodejs.org/dist/latest-v4.x/docs/api/modules.html#modules_modules (Accessed: 4 January 2024).
 
 Using Python 3.12 (Oct. 2, 2023). Available at: https://www.python.org/downloads/release/python-3120/?ref=upstract.com (Accessed: 4 January 2024).
+
+Using Vue V-Model (no Date). Available at: https://vuejs.org/guide/components/v-model.html (Accessed: 5 January 2024).
+
+Using Vue Fetch (no Date). Available at: https://www.koderhq.com/tutorial/vue/http-fetch/#fetch-api (Accessed: 5 January 2024).
+
+Using Bulma Columns (no Date). Available at: https://bulma.io/documentation/columns/ (Accessed: 5 January 2024).
+
+Using Bulma Navbar (No Date). Available at: https://bulma.io/documentation/components/navbar/ (Accessed: 5 January 2024).
